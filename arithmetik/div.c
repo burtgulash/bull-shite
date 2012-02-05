@@ -1,8 +1,9 @@
 #include <signal.h>
+#include <stdio.h>
 
-unsigned divide(unsigned a, unsigned b)
+int divide(int a, int b)
 {
-    unsigned q, s;                  // quotient
+    int q, s;                  // quotient, shift
 
     q = 0;
     s = 0;
@@ -30,20 +31,19 @@ unsigned divide(unsigned a, unsigned b)
     return q;
 }
 
-unsigned divide2(unsigned a, unsigned b)
+int divide2(int a, int b)
 {
-    unsigned q, x, a_half;
+    int q, x;
+
+    q = 0;
+    x = b;
 
     // Division by 0.
     if (b == 0)
         raise(SIGFPE);
 
-    q = 0;
-    x = b;
-    a_half = a >> 1;
-
     // Align a and b.
-    while (x <= a_half)
+    while (x <= (a >> 1))
         x <<= 1;
 
     while (x >= b) {
